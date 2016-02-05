@@ -1,4 +1,4 @@
-FROM jangorecki/r-data.table
+FROM quay.io/jangorecki/r-data.table
 
 MAINTAINER Jan Gorecki j.gorecki@wit.edu.pl
 
