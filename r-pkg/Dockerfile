@@ -1,4 +1,4 @@
-FROM jangorecki/r-base-dev
+FROM quay.io/jangorecki/r-base-dev
 
 MAINTAINER Jan Gorecki j.gorecki@wit.edu.pl
 
