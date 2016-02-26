@@ -27,7 +27,7 @@ RUN echo 'options(repos = c(CRAN = "https://cran.rstudio.com"))' >> /etc/R/Rprof
 RUN Rscript -e 'install.packages(c("knitr","rmarkdown"))'
 
 # explicitly override for `insertArtifacts` feature
-RUN Rscript -e 'install.packages("drat", repos = "https://jangorecki.github.io/drat")'
+RUN Rscript -e 'install.packages("drat", repos = "https://jangorecki.gitlab.io/drat")'
 
 # R check envs
 ENV _R_CHECK_CRAN_INCOMING_=false
