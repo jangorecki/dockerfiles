@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM docker.io/ubuntu:14.04
 
 MAINTAINER Jan Gorecki j.gorecki@wit.edu.pl
 

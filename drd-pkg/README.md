@@ -1,4 +1,4 @@
-Dockerfile for minimal setup of Debian and R-devel:
+Dockerfile setup of Debian and R-devel:
 ```
 docker.io/rocker/drd
 ```
