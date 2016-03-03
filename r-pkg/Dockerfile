@@ -11,7 +11,7 @@ RUN PANDOC_VERSION='1.13.1' \
   && PANDOC_DIR="${HOME}/opt/pandoc" \
   && PANDOC_URL="https://s3.amazonaws.com/rstudio-buildtools/pandoc-${PANDOC_VERSION}.zip" \
   && mkdir -p "${PANDOC_DIR}" \
-  && wget -O /tmp/pandoc-${PANDOC_VERSION}.zip ${PANDOC_URL} \
+  && curl -o /tmp/pandoc-${PANDOC_VERSION}.zip ${PANDOC_URL} \
   && unzip -j /tmp/pandoc-${PANDOC_VERSION}.zip "pandoc-${PANDOC_VERSION}/linux/debian/x86_64/pandoc" -d "${PANDOC_DIR}" \
   && chmod +x "${PANDOC_DIR}/pandoc" \
   && ln -s "${PANDOC_DIR}/pandoc" /usr/local/bin \
