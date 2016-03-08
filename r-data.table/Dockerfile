@@ -3,7 +3,7 @@ FROM docker.io/jangorecki/r-base-dev
 MAINTAINER Jan Gorecki j.gorecki@wit.edu.pl
 
 # setup R repos
-RUN echo 'options(repos = paste0("https://", c("cran.rstudio.com","rforge.net","jangorecki.github.io/data.table")))' >> /etc/R/Rprofile.site
+RUN echo 'options(repos = paste0("https://", c("cran.rstudio.com","rforge.net","Rdatatable.github.io/data.table")))' >> /etc/R/Rprofile.site
 
 # install R packages
 RUN Rscript -e 'install.packages(c("RSclient","Rserve","data.table"))'
