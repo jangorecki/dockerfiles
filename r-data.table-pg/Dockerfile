@@ -16,4 +16,4 @@ RUN Rscript -e 'install.packages(c("RPostgreSQL","microbenchmarkCore","logR","pg
 EXPOSE 6311
 
 # start Rserve
-CMD ["R","CMD","Rserve","--RS-conf","/etc/Rserve.conf","--no-save"]
+CMD R CMD Rserve --RS-conf /etc/Rserve.conf --no-save && /bin/sh -c "while true; do sleep 5; done;"
