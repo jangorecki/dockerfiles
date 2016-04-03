@@ -25,6 +25,7 @@ RUN apt-get update -qq \
                 clustalo \
                 texlive-xetex \
                 texlive-pstricks \
+                libfftw3-dev \
         && R CMD javareconf \
         && rm -rf /var/lib/apt/lists/*
 
