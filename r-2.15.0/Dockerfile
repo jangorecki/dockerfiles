@@ -29,7 +29,7 @@ RUN apt-get update -qq \
 RUN curl -O http://cran.stat.ucla.edu/src/base/R-2/R-2.15.0.tar.gz \
         && tar xvf R-2.15.0.tar.gz \
         && cd R-2.15.0 \
-        && ./configure --without-recommended-packages \
+        && ./configure --with-recommended-packages \
         && make \
         && make install \
         && cd /usr/local/bin \
