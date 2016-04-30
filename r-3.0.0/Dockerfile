@@ -20,14 +20,22 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-RUN add-apt-repository "deb https://cran.rstudio.com/bin/linux/ubuntu $(lsb_release -cs)/" \
-        && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
-
 RUN apt-get update -qq \
-        && apt-get install -y --no-install-recommends \
+        && apt-get -y --no-install-recommends \
+                build-dep \
                 r-base-dev \
-                r-recommended \
-        && echo 'options(repos = c(CRAN = "https://cran.rstudio.com/"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site \
         && rm -rf /var/lib/apt/lists/*
 
-CMD ["R"]
+RUN curl -O http://cran.stat.ucla.edu/src/base/R-3/R-3.0.0.tar.gz \
+        && tar xvf R-3.0.0.tar.gz \
+        && cd R-3.0.0/ \
+        && ./configure --with-recommended-packages \
+        && make \
+        && make install \
+        && cd /usr/local/bin \
+        && mv R R300 \
+        && mv Rscript Rscript300 \
+        && ln -s R300 R3 \
+        && ln -s Rscript300 R3script
+
+CMD ["R3"]
