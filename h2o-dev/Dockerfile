@@ -38,7 +38,13 @@ ENV LC_ALL en_US.UTF-8
 
 RUN curl -sL https://deb.nodesource.com/setup_0.12 | bash -
 
-RUN apt-get install -y nodejs
+RUN apt-get install -y \
+                nodejs  \
+                npm
+
+RUN ln -s "$(which nodejs)" /usr/bin/node
+
+RUN echo '{ "allow_root": true }' >> /root/.bowerrc
 
 # R
 
@@ -68,6 +74,13 @@ RUN apt-get update -qq \
         && rm /var/cache/oracle-jdk8-installer/jdk-* \
         && apt-get install -f \
         && rm -rf /var/lib/apt/lists/*
+
+
+# Python
+
+RUN apt-get install python-pip
+
+RUN pip install requests future tabulate
 
 # run
 
