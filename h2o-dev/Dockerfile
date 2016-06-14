@@ -3,7 +3,6 @@ FROM docker.io/ubuntu:16.04
 ## this image makes it ready to build h2o, it uses R 3.3.0:
 # git clone https://github.com/h2oai/h2o-3.git
 # cd h2o-3
-# vim h2o-r/scripts/package_version_check_update.R # update JENKINS.R.VERSION.MINOR to "3.0"
 # ./gradlew syncSmalldata
 # Rscript -e 'install.packages("kernlab")' # syncRPackages fails to install kernlab for R 3.3.0 from h2o repo, this uses CRAN version
 # ./gradlew syncRPackages
