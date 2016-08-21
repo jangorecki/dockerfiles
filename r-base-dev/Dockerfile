@@ -9,6 +9,7 @@ RUN apt-get install -y --no-install-recommends \
                 apt-transport-https \
                 software-properties-common \
                 curl \
+                wget \
                 git \
                 libssl-dev \
                 libcurl4-gnutls-dev \
@@ -27,7 +28,7 @@ RUN apt-get update -qq \
         && apt-get install -y --no-install-recommends \
                 r-base-dev \
                 r-recommended \
-        && echo 'options(repos = c(CRAN = "https://cran.rstudio.com/"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site \
+        && echo 'options(repos = c(CRAN = "https://cran.rstudio.com"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site \
         && rm -rf /var/lib/apt/lists/*
 
 CMD ["R"]
