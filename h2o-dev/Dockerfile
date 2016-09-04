@@ -1,12 +1,17 @@
 FROM docker.io/ubuntu:16.04
 
-## this image makes it ready to build h2o, it uses R 3.3.0:
-# git clone https://github.com/h2oai/h2o-3.git
+## this image makes it ready to build h2o, it use recent R version:
+# git clone --depth 1 https://github.com/h2oai/h2o-3.git
 # cd h2o-3
 # ./gradlew syncSmalldata
-# Rscript -e 'install.packages("kernlab")' # syncRPackages fails to install kernlab for R 3.3.0 from h2o repo, this uses CRAN version
-# ./gradlew syncRPackages
-# ./gradlew build
+# Rscript -e 'install.packages("kernlab")' # syncRPackages fails to install kernlab for recent R from h2o repo, this uses CRAN version
+# ./gradlew syncRPackages # kernlab install error, installed from CRAN
+# ./gradlew clean
+## either of two builds
+# ./gradlew build -x test
+# (export BUILD_HADOOP=1; ./gradlew build -x test)
+# cp /h2o-3/h2o-hadoop/h2o-hdp2.2-assembly/build/libs/h2odriver.jar h2o.jar
+# cp /h2o-3/h2o-r/R/src/contrib/h2o_3.11.0.99999.tar.gz h2o.tar.gz
 
 MAINTAINER Jan Gorecki j.gorecki@wit.edu.pl
 
@@ -20,6 +25,7 @@ RUN apt-get update -qq \
                 apt-transport-https \
                 software-properties-common \
                 curl \
+                wget \
                 git \
                 libssl-dev \
                 libcurl4-gnutls-dev \
@@ -57,7 +63,8 @@ RUN apt-get update -qq \
         && echo 'options(repos = c(CRAN = "https://cran.rstudio.com/"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site \
         && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get build-dep -y r-cran-rgl
+RUN apt-get update -qq \
+        && apt-get build-dep -y r-cran-rgl
 
 RUN apt-get install -y libxml2-dev
 
@@ -74,12 +81,12 @@ RUN apt-get update -qq \
         && apt-get install -f \
         && rm -rf /var/lib/apt/lists/*
 
-
 # Python
 
-RUN apt-get install python-pip
+RUN apt-get update -qq \
+        && apt-get -y install python-pip
 
-RUN pip install requests future tabulate
+RUN pip install requests future tabulate colorama
 
 # run
 
