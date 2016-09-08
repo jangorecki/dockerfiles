@@ -44,9 +44,5 @@ RUN PANDOC_VERSION='1.13.1' \
   && chmod +x "${PANDOC_DIR}/pandoc-citeproc" \
   && ln -s "${PANDOC_DIR}/pandoc-citeproc" /usr/local/bin
 
-# R check envs
-ENV _R_CHECK_CRAN_INCOMING_=FALSE
-ENV _R_CHECK_FORCE_SUGGESTS_=FALSE
-
 # start R
 CMD ["R"]
