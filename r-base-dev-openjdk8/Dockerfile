@@ -1,4 +1,4 @@
-FROM docker.io/jangorecki/r-builder
+FROM docker.io/r-base-dev
 
 MAINTAINER Jan Gorecki j.gorecki@wit.edu.pl
 
