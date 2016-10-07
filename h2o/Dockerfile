@@ -1,19 +1,35 @@
-FROM jangorecki/r-base-dev
-
-MAINTAINER Jan Gorecki j.gorecki@wit.edu.pl
+FROM ubuntu:16.04
 
 RUN apt-get update -qq \
-        && apt-get -y install debconf-utils
-
-RUN add-apt-repository -y ppa:webupd8team/java
-
-RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections
-
+        && apt-get upgrade -y
+        
 RUN apt-get update -qq \
-        && apt-get -y install oracle-java8-installer \
-                oracle-java8-set-default \
+        && apt-get install -y --no-install-recommends \
+                apt-transport-https \
+                software-properties-common \
+                curl \
+                wget \
+                vim \
+                unzip \
         && rm -rf /var/lib/apt/lists/*
 
-RUN Rscript -e 'install.packages("h2o")'
+# locale
 
-CMD ["R"]
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+# java
+
+RUN apt-get update -qq \
+    && apt-get install -y openjdk-8-jdk \
+    && rm -rf /var/lib/apt/lists/*
+
+# h2o
+
+RUN curl -O http://download.h2o.ai/versions/h2o-3.10.0.7.zip \
+    && unzip h2o-3.10.0.7.zip \
+    && mv h2o-3.10.0.7/h2o.jar .
+
+CMD java -Xmx6g -jar h2o.jar -name dockerized-h2o
