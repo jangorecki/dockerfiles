@@ -2,7 +2,7 @@ FROM docker.io/jangorecki/r-base-dev
 
 MAINTAINER Jan Gorecki j.gorecki@wit.edu.pl
 
-# install pandoc required for 'sdcMicro' package
+# install pandoc
 RUN PANDOC_VERSION='1.13.1' \
   && PANDOC_DIR="${HOME}/opt/pandoc" \
   && PANDOC_URL="https://s3.amazonaws.com/rstudio-buildtools/pandoc-${PANDOC_VERSION}.zip" \
@@ -40,11 +40,11 @@ RUN apt-get update -qq \
                 texlive-xetex \
                 texlive-pstricks \
                 libfftw3-dev \
+                parallel \
+                libgsl-dev \
+                octave liboctave-dev \
+                jags \
         && R CMD javareconf \
         && rm -rf /var/lib/apt/lists/*
-
-# R check envs
-ENV _R_CHECK_CRAN_INCOMING_=FALSE
-ENV _R_CHECK_FORCE_SUGGESTS_=FALSE
 
 CMD ["/bin/bash"]
