@@ -21,14 +21,14 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-RUN add-apt-repository "deb https://cran.rstudio.com/bin/linux/ubuntu $(lsb_release -cs)/" \
+RUN add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)/" \
         && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 
 RUN apt-get update -qq \
         && apt-get install -y --no-install-recommends \
                 r-base-dev \
                 r-recommended \
-        && echo 'options(repos = c(CRAN = "https://cran.rstudio.com"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site \
+        && echo 'options(repos = c(CRAN = "https://cloud.r-project.org"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site \
         && rm -rf /var/lib/apt/lists/*
 
 CMD ["R"]
