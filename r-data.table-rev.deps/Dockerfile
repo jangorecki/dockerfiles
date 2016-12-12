@@ -28,7 +28,7 @@ RUN apt-get update -qq \
                 libcurl4-openssl-dev \
                 xvfb xauth xfonts-base r-cran-rgtk2 \
                 xorg-dev x11-common libgdal-dev libproj-dev mysql-client libcairo2-dev libglpk-dev \
-                texlive texlive-latex-extra texlive-bibtex-extra texinfo fonts-inconsolata latex-xcolor \
+                texlive texlive-latex-extra texlive-bibtex-extra texlive-science texinfo fonts-inconsolata latex-xcolor \
                 libv8-dev \
                 gsl-bin libgsl0-dev \
                 libgtk2.0-dev netcdf-bin \
@@ -44,6 +44,8 @@ RUN apt-get update -qq \
                 libgsl-dev \
                 octave liboctave-dev \
                 jags \
+                libmpfr-dev \
+                bwidget \
         && R CMD javareconf \
         && rm -rf /var/lib/apt/lists/*
 
