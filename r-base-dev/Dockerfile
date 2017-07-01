@@ -14,6 +14,7 @@ RUN apt-get install -y --no-install-recommends \
                 libssl-dev \
                 libcurl4-gnutls-dev \
                 vim \
+                locales \
         && rm -rf /var/lib/apt/lists/*
 
 RUN locale-gen en_US.UTF-8
