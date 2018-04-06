@@ -11,5 +11,5 @@ before_script:
 build:
   stage: build
   script:
-    - docker build --pull -t CI_REGISTRY_IMAGE_REF -f r-memprof/Dockerfile .
+    - docker build --pull -t $CI_REGISTRY_IMAGE_REF -f r-memprof/Dockerfile .
     - docker push $CI_REGISTRY_IMAGE_REF
