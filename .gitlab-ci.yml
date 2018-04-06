@@ -1,0 +1,16 @@
+image: docker:latest
+services:
+  - docker:dind
+
+variables:
+  IMAGE_NAME: r-memprof
+  CI_REGISTRY_IMAGE_REF: $CI_REGISTRY_IMAGE/r-memprof:$CI_COMMIT_REF_NAME
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+build:
+  stage: build
+  script:
+    - docker build --pull -t CI_REGISTRY_IMAGE_REF -f "$IMAGE_NAME/Dockerfile" .
+    - docker push $CI_REGISTRY_IMAGE_REF
