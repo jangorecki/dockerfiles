@@ -8,5 +8,5 @@ before_script:
 build:
   stage: build
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE/r-memprof:$CI_COMMIT_REF_NAME" -f r-memprof/Dockerfile .
-    - docker push "$CI_REGISTRY_IMAGE/r-memprof:$CI_COMMIT_REF_NAME"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE/r-memprof" -f r-memprof/Dockerfile .
+    - docker push "$CI_REGISTRY_IMAGE/r-memprof"
