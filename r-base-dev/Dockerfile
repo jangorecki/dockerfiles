@@ -1,4 +1,4 @@
-FROM docker.io/ubuntu:16.04
+FROM ubuntu:16.04
 
 MAINTAINER Jan Gorecki j.gorecki@wit.edu.pl
 

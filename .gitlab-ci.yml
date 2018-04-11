@@ -1,6 +1,6 @@
 image: docker:latest
 variables:
-  IMAGE_NAME: "r-builder"
+  IMAGE_NAME: "r-base-dev"
 services:
   - docker:dind
 
