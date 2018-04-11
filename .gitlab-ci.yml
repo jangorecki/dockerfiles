@@ -1,4 +1,6 @@
 image: docker:latest
+variables:
+  IMAGE_NAME: "r-base-dev"
 services:
   - docker:dind
 
@@ -8,5 +10,5 @@ before_script:
 build:
   stage: build
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE/r-memprof" -f r-memprof/Dockerfile .
-    - docker push "$CI_REGISTRY_IMAGE/r-memprof"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE/$IMAGE_NAME" -f $IMAGE_NAME/Dockerfile .
+    - docker push "$CI_REGISTRY_IMAGE/$IMAGE_NAME"
