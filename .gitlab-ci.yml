@@ -1,6 +1,6 @@
 image: docker:latest
 variables:
-  IMAGE_NAME: "r-base-dev"
+  IMAGE_NAME: "r-builder"
 services:
   - docker:dind
 
@@ -10,5 +10,5 @@ before_script:
 build:
   stage: build
   script:
-    - docker build --pull -t "$IMAGE_NAME" -f $IMAGE_NAME/Dockerfile .
+    - docker build --pull -t "$CI_REGISTRY_IMAGE/$IMAGE_NAME" -f $IMAGE_NAME/Dockerfile .
     - docker push "$CI_REGISTRY_IMAGE/$IMAGE_NAME"
