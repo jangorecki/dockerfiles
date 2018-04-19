@@ -1,4 +1,4 @@
-FROM docker.io/ubuntu:14.04
+FROM ubuntu:16.04
 
 MAINTAINER Jan Gorecki j.gorecki@wit.edu.pl
 
@@ -9,10 +9,12 @@ RUN apt-get install -y --no-install-recommends \
                 apt-transport-https \
                 software-properties-common \
                 curl \
+                wget \
                 git \
                 libssl-dev \
                 libcurl4-gnutls-dev \
                 vim \
+                locales \
         && rm -rf /var/lib/apt/lists/*
 
 RUN locale-gen en_US.UTF-8
@@ -31,11 +33,6 @@ RUN curl -O http://cran.stat.ucla.edu/src/base/R-3/R-3.1.0.tar.gz \
         && cd R-3.1.0/ \
         && ./configure --with-recommended-packages \
         && make \
-        && make install \
-        && cd /usr/local/bin \
-        && mv R R310 \
-        && mv Rscript Rscript310 \
-        && ln -s R310 R3 \
-        && ln -s Rscript310 R3script
+        && make install
 
-CMD ["R3"]
+CMD ["R"]
