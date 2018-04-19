@@ -26,7 +26,7 @@ RUN apt-get update -qq \
                 r-base-dev \
         && rm -rf /var/lib/apt/lists/*
 
-RUN curl -O https://cloud.r-project.org/src/base/R-devel/R-devel.tar.gz \
+RUN curl -O https://cloud.r-project.org/src/base-prerelease/R-devel.tar.gz \
         && tar xvf R-devel.tar.gz \
         && cd R-devel/ \
         && ./configure --with-recommended-packages \
