@@ -1,4 +1,4 @@
-FROM docker.io/jangorecki/r-base-dev
+FROM registry.gitlab.com/jangorecki/dockerfiles/r-base-dev
 
 MAINTAINER Jan Gorecki j.gorecki@wit.edu.pl
 
@@ -32,17 +32,9 @@ RUN apt-get update -qq \
   && updmap-sys
 
 # install pandoc required for building markdown vignettes
-RUN PANDOC_VERSION='1.13.1' \
-  && PANDOC_DIR="${HOME}/opt/pandoc" \
-  && PANDOC_URL="https://s3.amazonaws.com/rstudio-buildtools/pandoc-${PANDOC_VERSION}.zip" \
-  && mkdir -p "${PANDOC_DIR}" \
-  && curl -o /tmp/pandoc-${PANDOC_VERSION}.zip ${PANDOC_URL} \
-  && unzip -j /tmp/pandoc-${PANDOC_VERSION}.zip "pandoc-${PANDOC_VERSION}/linux/debian/x86_64/pandoc" -d "${PANDOC_DIR}" \
-  && chmod +x "${PANDOC_DIR}/pandoc" \
-  && ln -s "${PANDOC_DIR}/pandoc" /usr/local/bin \
-  && unzip -j /tmp/pandoc-${PANDOC_VERSION}.zip "pandoc-${PANDOC_VERSION}/linux/debian/x86_64/pandoc-citeproc" -d "${PANDOC_DIR}" \
-  && chmod +x "${PANDOC_DIR}/pandoc-citeproc" \
-  && ln -s "${PANDOC_DIR}/pandoc-citeproc" /usr/local/bin
+RUN wget https://github.com/jgm/pandoc/releases/download/2.2/pandoc-2.2-1-amd64.deb \
+  && dpkg -i pandoc-2.2-1-amd64.deb \\
+  && rm pandoc-2.2-1-amd64.deb
 
 # start R
 CMD ["R"]
