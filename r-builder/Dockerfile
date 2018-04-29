@@ -33,7 +33,7 @@ RUN apt-get update -qq \
 
 # install pandoc required for building markdown vignettes
 RUN wget https://github.com/jgm/pandoc/releases/download/2.2/pandoc-2.2-1-amd64.deb \
-  && dpkg -i pandoc-2.2-1-amd64.deb \\
+  && dpkg -i pandoc-2.2-1-amd64.deb \
   && rm pandoc-2.2-1-amd64.deb
 
 # start R
