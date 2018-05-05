@@ -1,5 +1,8 @@
+stages:
+  - deploy-base
+  - deploy-child
+
 .docker-template: &docker
-  stage: deploy
   tags:
     - linux
   image: docker
@@ -12,16 +15,27 @@
     - docker push "$CI_REGISTRY_IMAGE/$IMAGE_NAME"
 
 docker-r-base-dev:
+  stage: deploy-base
   variables:
     IMAGE_NAME: "r-base-dev"
   <<: *docker
 
 docker-r-devel:
+  stage: deploy-base
   variables:
     IMAGE_NAME: "r-devel"
   <<: *docker
 
 docker-r-3.1.0:
+  stage: deploy-base
   variables:
     IMAGE_NAME: "r-3.1.0"
+  <<: *docker
+
+docker-r-builder:
+  stage: deploy-child
+  dependencies:
+  - docker-r-base-dev
+  variables:
+    IMAGE_NAME: "r-builder"
   <<: *docker
