@@ -2,12 +2,6 @@ FROM registry.gitlab.com/jangorecki/dockerfiles/r-base-dev
 
 MAINTAINER Jan Gorecki j.gorecki@wit.edu.pl
 
-# install qpdf for R check
-RUN apt-get update -qq \
-  && apt-get install -y --no-install-recommends qpdf \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
-
 # install latex required for building sweave vignettes and pdf manual
 # https://github.com/rocker-org/hadleyverse/blob/master/Dockerfile
 RUN apt-get update -qq \

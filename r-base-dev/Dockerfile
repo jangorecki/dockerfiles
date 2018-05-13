@@ -16,6 +16,7 @@ RUN apt-get install -y --no-install-recommends \
                 vim \
                 locales \
                 dbus \
+                qpdf \
         && rm -rf /var/lib/apt/lists/*
 
 RUN locale-gen en_US.UTF-8

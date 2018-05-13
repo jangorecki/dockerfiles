@@ -14,6 +14,7 @@ RUN apt-get install -y --no-install-recommends \
                 vim \
                 locales \
                 dbus \
+                qpdf \
         && rm -rf /var/lib/apt/lists/*
 
 RUN locale-gen en_US.UTF-8
@@ -27,7 +28,7 @@ RUN apt-get update -qq \
                 r-base-dev \
         && rm -rf /var/lib/apt/lists/*
 
-RUN curl -O https://cloud.r-project.org/src/base-prerelease/R-devel.tar.gz \
+RUN curl -O https://stat.ethz.ch/R/daily/R-devel.tar.gz \
         && tar xvf R-devel.tar.gz \
         && cd R-devel/ \
         && ./configure --with-recommended-packages \
