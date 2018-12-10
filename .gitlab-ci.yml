@@ -20,13 +20,13 @@ docker-r-base-dev:
     IMAGE_NAME: "r-base-dev"
   <<: *docker
 
-docker-r-devel:
+.docker-r-devel: # job in CI scheduler
   stage: deploy-base
   variables:
     IMAGE_NAME: "r-devel"
   <<: *docker
 
-docker-r-3.1.0:
+.docker-r-3.1.0: # no need to re-build
   stage: deploy-base
   variables:
     IMAGE_NAME: "r-3.1.0"

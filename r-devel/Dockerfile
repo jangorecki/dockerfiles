@@ -1,5 +1,7 @@
 FROM ubuntu:16.04
 
+MAINTAINER Jan Gorecki j.gorecki@wit.edu.pl
+
 RUN apt-get update -qq \
         && apt-get upgrade -y
 
@@ -21,6 +23,10 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+
+# R 3.5 changed url, revert when 3.6 released
+RUN add-apt-repository -s "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran35/" \
+        && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 
 RUN apt-get update -qq \
         && apt-get -y --no-install-recommends \
