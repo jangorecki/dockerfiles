@@ -24,8 +24,9 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-RUN add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)/" \
-        && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+# R 3.5 changed url, revert when 3.6 released
+RUN add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran35/" \
+        && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 
 RUN apt-get update -qq \
         && apt-get install -y --no-install-recommends \
