@@ -32,7 +32,11 @@ RUN apt-get update -qq \
         && apt-get install -y --no-install-recommends \
                 r-base-dev \
                 r-recommended \
-        && echo 'options(repos = c(CRAN = "https://cloud.r-project.org"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site \
         && rm -rf /var/lib/apt/lists/*
+
+RUN echo 'options(repos = c(CRAN = "https://cloud.r-project.org"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site \
+        && mkdir -p ~/.R \
+        && echo 'CFLAGS=-g -O2 -Wall -pedantic -fstack-protector-strong -D_FORTIFY_SOURCE=2' > ~/.R/Makevars \
+        && echo 'CXXFLAGS=-g -O2 -Wall -pedantic -fstack-protector-strong -D_FORTIFY_SOURCE=2' >> ~/.R/Makevars
 
 CMD ["R"]

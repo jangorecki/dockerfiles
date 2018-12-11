@@ -41,4 +41,9 @@ RUN curl -O https://stat.ethz.ch/R/daily/R-devel.tar.gz \
         && make \
         && make install
 
+RUN echo 'options(repos = c(CRAN = "https://cloud.r-project.org"), download.file.method = "libcurl")' >> /usr/local/lib/R/etc/Rprofile.site \
+        && mkdir -p ~/.R \
+        && echo 'CFLAGS=-g -O2 -Wall -pedantic -fstack-protector-strong -D_FORTIFY_SOURCE=2' > ~/.R/Makevars \
+        && echo 'CXXFLAGS=-g -O2 -Wall -pedantic -fstack-protector-strong -D_FORTIFY_SOURCE=2' >> ~/.R/Makevars
+
 CMD ["R"]
