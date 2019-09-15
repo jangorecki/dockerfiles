@@ -37,7 +37,7 @@ RUN apt-get update -qq \
 RUN curl -O https://stat.ethz.ch/R/daily/R-devel.tar.gz \
         && tar xvf R-devel.tar.gz \
         && cd R-devel/ \
-        && ./configure --with-recommended-packages --enable-strict-barrier \
+        && ./configure --with-recommended-packages --enable-strict-barrier --disable-long-double \
         && make \
         && make install
 
