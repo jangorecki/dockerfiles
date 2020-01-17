@@ -31,9 +31,7 @@ RUN add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_r
 RUN apt-get update -qq \
         && apt-get install -y --no-install-recommends \
                 r-base-core=3.5.0-1xenial \
-                r-base=3.5.0-1xenial \
                 r-base-dev=3.5.0-1xenial \
-                r-recommended=3.5.0-1xenial \
         && rm -rf /var/lib/apt/lists/*
 
 CMD ["R"]
