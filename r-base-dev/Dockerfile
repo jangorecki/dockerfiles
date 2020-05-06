@@ -24,6 +24,7 @@ RUN apt-get install -y --no-install-recommends \
                 locales \
                 dbus \
                 qpdf \
+                devscripts \
         && rm -rf /var/lib/apt/lists/*
 
 RUN locale-gen en_US.UTF-8
