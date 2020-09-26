@@ -4,9 +4,9 @@ MAINTAINER Jan Gorecki j.gorecki@wit.edu.pl
 
 RUN apt-get update -qq \
   && apt-get install -y --no-install-recommends \
-    libxml2-dev \                                          ## xml2
-    libfontconfig1-dev \                                   ## systemfonts
-    libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev \ ## ragg
+    libxml2-dev \
+    libfontconfig1-dev \
+    libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
