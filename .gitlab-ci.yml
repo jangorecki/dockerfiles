@@ -1,6 +1,7 @@
 stages:
   - deploy-base
   - deploy-child
+  - deploy-grandchild
 
 .docker-template: &docker
   tags:
@@ -50,4 +51,12 @@ docker-r-builder:
   - docker-r-base-dev
   variables:
     IMAGE_NAME: "r-builder"
+  <<: *docker
+
+docker-r-pkgdown:
+  stage: deploy-grandchild
+  dependencies:
+  - docker-r-builder
+  variables:
+    IMAGE_NAME: "r-pkgdown"
   <<: *docker
