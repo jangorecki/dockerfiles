@@ -52,7 +52,7 @@ RUN mkdir -p ~/.R \
         && echo -e 'CC=clang\nCXX=clang++' > ~/.R/Makevars \
         && echo -e 'CFLAGS=-g -O3 -Wall -pedantic\nFFLAGS=-g -O2 -mtune=native -Wall -pedantic' >> ~/.R/Makevars \
         && echo -e 'CXXFLAGS=-g -O3 -Wall -pedantic -frtti\nCPPFLAGS=-isystem /usr/local/clang/include' >> ~/.R/Makevars \
-        && echo -e 'JAVA_HOME=/usr/lib/jvm/java-1.8.0\nLDFLAGS=-L/usr/local/clang/lib64 -L/usr/local/lib64' >> ~/.R/Makevars \
+        && echo -e 'JAVA_HOME=/usr/lib/jvm/java-1.8.0\nLDFLAGS=-L/usr/local/clang/lib64 -L/usr/local/lib64' >> ~/.R/Makevars
 
 RUN echo 'options(repos = c(CRAN = "https://cloud.r-project.org"), download.file.method = "libcurl")' >> /usr/local/lib/R/etc/Rprofile.site
 
