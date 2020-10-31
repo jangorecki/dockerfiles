@@ -7,6 +7,7 @@ RUN apt-get update -qq \
     libxml2-dev \
     libfontconfig1-dev \
     libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev \
+    libharfbuzz-dev libfribidi-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
