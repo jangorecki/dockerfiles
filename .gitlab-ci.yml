@@ -59,7 +59,7 @@ stages:
     IMAGE_NAME: "r-builder"
   <<: *docker
 
-docker-r-pkgdown:
+.docker-r-pkgdown:
   stage: deploy-grandchild
   dependencies:
   - docker-r-builder
