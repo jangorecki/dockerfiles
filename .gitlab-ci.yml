@@ -15,7 +15,7 @@ stages:
     - docker build --pull -t "$CI_REGISTRY_IMAGE/$IMAGE_NAME" -f $IMAGE_NAME/Dockerfile .
     - docker push "$CI_REGISTRY_IMAGE/$IMAGE_NAME"
 
-.docker-r-base-dev:
+docker-r-base-dev:
   stage: deploy-base
   variables:
     IMAGE_NAME: "r-base-dev"
@@ -51,7 +51,7 @@ stages:
     IMAGE_NAME: "r-3.5.0"
   <<: *docker
 
-.docker-r-builder:
+docker-r-builder:
   stage: deploy-child
   dependencies:
   - docker-r-base-dev
@@ -59,7 +59,7 @@ stages:
     IMAGE_NAME: "r-builder"
   <<: *docker
 
-.docker-r-pkgdown:
+docker-r-pkgdown:
   stage: deploy-grandchild
   dependencies:
   - docker-r-builder
