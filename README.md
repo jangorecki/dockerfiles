@@ -1,7 +1,5 @@
-Dockefiles:  
-  - `drd-pkg`: extends `docker.io/rocker-org/drd` for building Rmd vignettes with knitr or rmarkdown.  
-  - `r-base-dev`: extends `ubuntu:14.04` for r-base-dev.  
-  - `r-pkg`: extends `r-base-dev` for building Rmd vignettes with knitr or rmarkdown.  
-  - `r-data.table-dev`: extends `r-pkg` with data.table suggested dependencies, but no data.table itself.  
-  - `r-data.table`: upgrades `r-base-dev` to Rserve service with data.table.  
-  - `r-data.table-pg`: extends `r-data.table` service with native postgres drivers and RpostgreSQL, logR and pg R packages.  
+See [.gitlab-ci.yaml](./.gitlab-ci.yaml) for currently used docker images.
+
+Non-template jobs prefixed with `.` are disabled because we only need to rebuild them when `r-release` got upgraded.
+Branch building R-devel images is disabled by putting dummy echo command to `script`, so the child jobs can proceed without rebuilding parent.
+
