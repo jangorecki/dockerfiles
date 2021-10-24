@@ -8,7 +8,9 @@ RUN apt-get update -qq \
     libfontconfig1-dev \
     libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev \
     libharfbuzz-dev libfribidi-dev \
+    apt-transport-https ca-certificates \
   && apt-get clean \
+  && update-ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
 RUN Rscript -e 'install.packages("pkgdown", repos="https://cloud.r-project.org")'
