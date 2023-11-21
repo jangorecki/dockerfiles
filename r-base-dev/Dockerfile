@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 
 MAINTAINER Jan Gorecki j.gorecki@wit.edu.pl
 
@@ -41,6 +41,6 @@ RUN apt-get update -qq \
                 r-recommended \
         && rm -rf /var/lib/apt/lists/*
 
-RUN echo 'options(repos = c(CRAN = "https://cloud.r-project.org"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site
+RUN echo 'options(repos=c(CRAN="https://cloud.r-project.org"))' >> /etc/R/Rprofile.site
 
 CMD ["R"]
