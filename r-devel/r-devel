@@ -1,4 +1,4 @@
-FROM r-devel-minimal
+FROM registry.gitlab.com/jangorecki/dockerfiles/r-devel-minimal
 
 LABEL org.opencontainers.image.licenses="GPL-2.0-or-later" \
       maintainer="Jan Gorecki <j.gorecki@wit.edu.pl>"
