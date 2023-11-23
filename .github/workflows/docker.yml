@@ -25,12 +25,12 @@ jobs:
       - name: build and push r-devel-minimal
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
-          context: r-devel/r-devel-minimal
+          file: r-devel/r-devel-minimal
           push: true
           tags: latest
       - name: build and push r-devel
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
-          context: r-devel/r-devel
+          file: r-devel/r-devel
           push: true
           tags: latest
