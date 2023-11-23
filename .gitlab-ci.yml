@@ -20,6 +20,7 @@ r-devel:
   variables:
     IMAGE_FAMILY_NAME: "r-devel"
     IMAGE_NAME: "r-devel"
-  needs: "r-devel-minimal"
+  needs:
+    - r-devel-minimal
   <<: *docker
 
