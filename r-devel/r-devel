@@ -1,0 +1,29 @@
+FROM r-devel-minimal
+
+LABEL org.opencontainers.image.licenses="GPL-2.0-or-later" \
+      maintainer="Jan Gorecki <j.gorecki@wit.edu.pl>"
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    build-essential \
+    tidy \
+    pandoc \
+    qpdf \
+    pkg-config \
+    perl \
+    texinfo \
+    locales \
+  && rm -rf /var/lib/apt/lists/* \
+  && wget -q https://yihui.org/tinytex/install-bin-unix.sh \
+  && sh install-bin-unix.sh \
+  && rm install-bin-unix.sh
+
+RUN dpkg-reconfigure locales \
+    && locale-gen C.UTF-8 \
+    && /usr/sbin/update-locale LANG=C.UTF-8
+
+ENV LC_ALL=C.UTF-8
+ENV PATH="${PATH}:/root/.TinyTeX/bin/x86_64-linux"
+
+CMD ["R"]
+

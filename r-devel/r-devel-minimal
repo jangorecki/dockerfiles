@@ -1,0 +1,66 @@
+FROM debian:testing
+
+## R-devel image stripped out of R build dependencies, includes checkbashisms
+
+LABEL org.opencontainers.image.licenses="GPL-2.0-or-later" \
+      maintainer="Jan Gorecki <j.gorecki@wit.edu.pl>"
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    make \
+    gcc \
+    ca-certificates \
+    wget \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN echo "deb http://http.debian.net/debian sid main" > /etc/apt/sources.list.d/debian-unstable.list \
+  && echo "deb-src http://http.debian.net/debian sid main" > /etc/apt/sources.list.d/debian-unstable.list
+
+## mk-build-deps builds meta package r-base-build-deps linking r-base build deps
+## compile r-devel
+## remove meta package and autoremove all build deps
+## install r-base for its runtime deps
+## remove r-base but not autoremove to keep runtime deps
+## install r-devel
+RUN cd /tmp \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends equivs devscripts \
+  && mk-build-deps r-base \
+  && cp /usr/bin/checkbashisms /tmp/checkbashisms \
+  && apt-get purge -y equivs devscripts \
+  && mv /tmp/checkbashisms /usr/bin/checkbashisms \
+  && apt-get install -y --no-install-recommends ./r-base-build-deps_*.deb \
+  && rm r-base-build-deps_* \
+  && wget https://stat.ethz.ch/R/daily/R-devel.tar.gz \
+  && tar -xf R-devel.tar.gz \
+  && rm R-devel.tar.gz \
+  && cd /tmp/R-devel \
+  && R_PAPERSIZE=letter \
+    R_BATCHSAVE="--no-save --no-restore" \
+    R_BROWSER=xdg-open \
+    PAGER=/usr/bin/pager \
+    PERL=/usr/bin/perl \
+    R_UNZIPCMD=/usr/bin/unzip \
+    R_ZIPCMD=/usr/bin/zip \
+    R_PRINTCMD=/usr/bin/lpr \
+    LIBnn=lib \
+    AWK=/usr/bin/awk \
+    ./configure \
+      --without-recommended-packages \
+  && make \
+  && apt-get purge -y r-base-build-deps \
+  && apt-get autoremove -y \
+  && apt-get install -y r-base --no-install-recommends \
+  && R --version > /runtime-deps-r-base-version \
+  && apt-get purge -y r-base r-base-core r-recommended r-cran-* \
+  && make install \
+  && cd / \
+  && apt-get clean \
+  && apt-get autoclean \
+  && rm -rf /var/lib/apt/lists/* /tmp/R-devel /tmp/downloaded_packages/ /tmp/*.rds \
+  && echo 'options("repos"="https://cloud.r-project.org")' >> /usr/local/lib/R/etc/Rprofile.site
+
+CMD ["R"]
+
