@@ -1,29 +1,25 @@
-docker-r-devel-minimal:
-  variables:
-    IMAGE_FAMILY_NAME: "r-devel"
-    IMAGE_NAME: "r-devel-minimal"
-  tags: "linux"
+.docker-template: &docker
+  tags:
+    - linux
   image: docker
   services:
-    - docker:dind
+  - docker:dind
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE/$IMAGE_NAME" -f $IMAGE_FAMILY_NAME/$IMAGE_NAME .
     - docker push "$CI_REGISTRY_IMAGE/$IMAGE_NAME"
 
-docker-r-devel:
-  needs: "docker-r-devel-minimal"
+r-devel-minimal:
+  variables:
+    IMAGE_FAMILY_NAME: "r-devel"
+    IMAGE_NAME: "r-devel-minimal"
+  <<: *docker
+
+r-devel:
   variables:
     IMAGE_FAMILY_NAME: "r-devel"
     IMAGE_NAME: "r-devel"
-  tags: "linux"
-  image: docker
-  services:
-    - docker:dind
-  before_script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-  script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE/$IMAGE_NAME" -f $IMAGE_FAMILY_NAME/$IMAGE_NAME .
-    - docker push "$CI_REGISTRY_IMAGE/$IMAGE_NAME"
+  needs: "r-devel-minimal"
+  <<: *docker
 
